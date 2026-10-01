@@ -147,3 +147,23 @@ int lengthOfLIS(vector<int>& nums) {
 If required to discuss brute, use dp array, iterate through j from 0 to i-1, dp[i] = max(dp[i], dp[j] + 1)
 
 To count number of LIS, create a count vector, update when equal, else reset to j if greater found(will update in detail later).
+
+7. Prefix Count with a Choice on Operations
+Suppose you need to find a prefix for which you need to perform say either of two operations, brute way to represent :
+```cpp
+dp[i][j][k] = "can cover first i elements using j health and k money"
+```
+Naturally, cubic might be too tight to fit. So we can always shrink states to make the k as the value of the dp, and minimise it. 
+**It is always optimal to minimise,**
+```cpp
+dp[3][5][5] = true
+dp[3][5][8] = true
+```
+in no case, will using  8 over 5 be optimal.
+
+So, we represent as :
+```cpp
+dp[i][j] = "min k(money) to cover i elements using j health"
+```
+
+Use a boolean to check, if any i not possible, **immediately break** and report that i as the answer.
